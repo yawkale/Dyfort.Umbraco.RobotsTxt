@@ -1,0 +1,21 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <DyfortUmbracoRobotsTxtContentFilesPath>$(MSBuildThisFileDirectory)..\App_Plugins\Dyfort.Umbraco.RobotsTxt\**\*.*</DyfortUmbracoRobotsTxtContentFilesPath>
+    </PropertyGroup>
+
+    <Target Name="CopyDyfortUmbracoRobotsTxtAssets" BeforeTargets="Build">
+        <ItemGroup>
+            <DyfortUmbracoRobotsTxtContentFiles Include="$(DyfortUmbracoRobotsTxtContentFilesPath)" />
+        </ItemGroup>
+        <Message Text="Copying Dyfort.Umbraco.RobotsTxt files: $(DyfortUmbracoRobotsTxtContentFilesPath) - #@(DyfortUmbracoRobotsTxtContentFiles->Count()) files" Importance="high" />
+        <Copy SourceFiles="@(DyfortUmbracoRobotsTxtContentFiles)" DestinationFiles="@(DyfortUmbracoRobotsTxtContentFiles->'$(MSBuildProjectDirectory)\App_Plugins\Dyfort.Umbraco.RobotsTxt\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+    </Target>
+    
+    <Target Name="ClearDyfortUmbracoRobotsTxtAssets" BeforeTargets="Clean">
+        <ItemGroup>
+            <DyfortUmbracoRobotsTxtDir Include="$(MSBuildProjectDirectory)\App_Plugins\Dyfort.Umbraco.RobotsTxt\" />
+        </ItemGroup>
+        <Message Text="Clear old Dyfort.Umbraco.RobotsTxt data" Importance="high" />
+        <RemoveDir Directories="@(DyfortUmbracoRobotsTxtDir)" />
+    </Target>
+</Project>

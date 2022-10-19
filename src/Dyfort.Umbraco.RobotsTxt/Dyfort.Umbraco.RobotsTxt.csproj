@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ContentTargetFolders>.</ContentTargetFolders>
+    <Product>Dyfort.Umbraco.RobotsTxt</Product>
+    <PackageId>Dyfort.Umbraco.RobotsTxt</PackageId>
+    <Title>Dyfort.Umbraco.RobotsTxt</Title>
+    <Description>Umbraco plugin return robots.txt by environment settings</Description>
+    <PackageTags>umbraco plugin package</PackageTags>
+    <RepositoryUrl>https://github.com/yawkale/Dyfort.Umbraco.RobotsTxt</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageProjectUrl>https://www.dyfort.com/products/umbraco-robots-txt/</PackageProjectUrl>
+    <Company>Dyfort</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="10.2.1" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="App_Plugins\Dyfort.Umbraco.RobotsTxt\**">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+    </Content>
+    <None Include="build\**">
+      <Pack>true</Pack>
+      <PackagePath>buildTransitive</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>
