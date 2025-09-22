@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
+using System;
 using System.IO;
 using System.Threading.Tasks;
+using Umbraco.Cms.Core.Web;
+using Umbraco.Extensions;
 
 namespace Dyfort.Umbraco.RobotsTxt
 {
@@ -12,16 +16,22 @@ namespace Dyfort.Umbraco.RobotsTxt
         private readonly RequestDelegate next;
         private readonly string environmentName;
         private readonly string rootPath;
+        private readonly RobotsTxtSettings settings;
+        private readonly IUmbracoContextAccessor umbracoContextAccessor;
 
         public RobotsTxtMiddleware(
             RequestDelegate next,
             string environmentName,
-            string rootPath
+            string rootPath,
+            IOptions<RobotsTxtSettings> settings,
+            IUmbracoContextAccessor umbracoContextAccessor
         )
         {
             this.next = next;
             this.environmentName = environmentName;
             this.rootPath = rootPath;
+            this.settings = settings.Value;
+            this.umbracoContextAccessor = umbracoContextAccessor;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -32,8 +42,26 @@ namespace Dyfort.Umbraco.RobotsTxt
                 var environmentRobotsTxt = Path.Combine(rootPath, $"robots.{environmentName}.txt");
                 string output;
 
+                if (settings.ContentKey.HasValue && !string.IsNullOrWhiteSpace(settings.FieldName))
+                {
+                    var umbracoContext = umbracoContextAccessor.GetRequiredUmbracoContext();
+
+                    var content = umbracoContext.Content?.GetById(settings.ContentKey.Value);
+
+                    if (content == null)
+                    {
+                        throw new Exception($"Content by '{settings.ContentKey.Value}' not found.");
+                    }
+
+                    if (!content.HasProperty(settings.FieldName))
+                    {
+                        throw new Exception($"Property by '{settings.FieldName}' not found on content with key '{content.Key}'.");
+                    }
+
+                    output = content.Value<string>(settings.FieldName);
+                }
                 // try environment first
-                if (File.Exists(environmentRobotsTxt))
+                else if (File.Exists(environmentRobotsTxt))
                 {
                     output = await File.ReadAllTextAsync(environmentRobotsTxt);
                 }
