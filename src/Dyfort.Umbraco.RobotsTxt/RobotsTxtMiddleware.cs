@@ -46,7 +46,12 @@ namespace Dyfort.Umbraco.RobotsTxt
                 {
                     var umbracoContext = umbracoContextAccessor.GetRequiredUmbracoContext();
 
-                    var content = umbracoContext.Content?.GetById(settings.ContentKey.Value);
+                    if (umbracoContext.Content == null)
+                    {
+                        throw new Exception("Published content cache is null.");
+                    }
+
+                    var content = umbracoContext.Content.GetById(settings.ContentKey.Value);
 
                     if (content == null)
                     {
