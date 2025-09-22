@@ -3,3 +3,6 @@
 ################################################################################
 
 /src/Dyfort.Umbraco.RobotsTxt/.vs
+/src/Dyfort.Umbraco.RobotsTxt/bin
+/src/Dyfort.Umbraco.RobotsTxt/obj
+/src/.vs
