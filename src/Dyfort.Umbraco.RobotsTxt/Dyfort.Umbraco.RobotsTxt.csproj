@@ -19,7 +19,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[14,15)" />
-		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[14.3.3,15)" />
+		<PackageReference Include="Umbraco.Cms.Api.Management" Version="[14,15)" />
 	</ItemGroup>
 
 	<ItemGroup>
