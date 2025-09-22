@@ -19,7 +19,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[13,14)" />
-		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[13.7.1,14)" />
+		<PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[13,14)" />
 	</ItemGroup>
 
 	<ItemGroup>
