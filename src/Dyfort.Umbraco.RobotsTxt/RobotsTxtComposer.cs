@@ -33,15 +33,10 @@ namespace Dyfort.Umbraco.RobotsTxt
 
             builder.Services.Configure<UmbracoPipelineOptions>(options =>
             {
-                options.AddFilter(new UmbracoPipelineFilter(
-                    "robots_txt",
-                    applicationBuilder => { },
-                    applicationBuilder => { },
-                    applicationBuilder =>
-                    {
-                        applicationBuilder.UseRobotsTxt(applicationBuilder.ApplicationServices.GetRequiredService<IWebHostEnvironment>());
-                    }
-                    ));
+                options.AddFilter(new UmbracoPipelineFilter("robots_txt")
+                {
+                    Endpoints = app => app.UseRobotsTxt(app.ApplicationServices.GetRequiredService<IWebHostEnvironment>())
+                });
             });
         }
     }
