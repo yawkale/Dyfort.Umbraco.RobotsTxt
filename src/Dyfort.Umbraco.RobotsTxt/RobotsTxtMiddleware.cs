@@ -11,7 +11,8 @@ namespace Dyfort.Umbraco.RobotsTxt
     public class RobotsTxtMiddleware
     {
         const string Default =
-            @"User-Agent: *\nAllow: /";
+            @"User-Agent: *
+Disallow: /";
 
         private readonly RequestDelegate next;
         private readonly string environmentName;
